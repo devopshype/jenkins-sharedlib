@@ -30,7 +30,7 @@ def call(String dockerRegistry, String dockerImageTag, String ecrRepo, String aw
                 aws ecr create-repository --repository-name $ecrRepo --region $awsRegion
             else
                 echo "Repository $ecrRepo already exists."
-            fi
+            fi 
 
             # Login to Docker registry
             aws ecr get-login-password --region $awsRegion | docker login --username AWS --password-stdin $dockerRegistry
