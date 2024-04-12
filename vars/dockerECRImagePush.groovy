@@ -12,8 +12,12 @@ def call(String dockerRegistry, String dockerImageTag, String ecrRepo, String aw
             echo "AWS CLI installed successfully."
         fi
     """*/
-
-    withCredentials([usernamePassword(
+      withCredentials([aws(
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID', 
+        credentialsId: 'awsCredID', 
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+    )]) {
+    /*withCredentials([usernamePassword(
         credentialsId: "$awsCredID",
         usernameVariable: "awsAccessKey",
         passwordVariable: "awsSecretKey"
@@ -22,8 +26,8 @@ def call(String dockerRegistry, String dockerImageTag, String ecrRepo, String aw
             # Configure AWS CLI
             aws configure set aws_access_key_id $awsAccessKey
             aws configure set aws_secret_access_key $awsSecretKey
-            aws configure set region $awsRegion
-
+            aws configure set region $awsRegion */
+        sh """
             # Check if the repository exists and create it if it does not
             if ! aws ecr describe-repositories --repository-names $ecrRepo --region $awsRegion >/dev/null 2>&1; then
                 echo "Repository $ecrRepo does not exist. Creating repository."
