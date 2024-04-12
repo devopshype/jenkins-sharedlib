@@ -1,5 +1,5 @@
 def call(String dockerRegistry, String dockerImageTag, String ecrRepo, String awsCredID, String awsRegion){
-    sh """
+   /* sh """
         if ! command -v aws > /dev/null; then
             echo "AWS CLI not found. Installing AWS CLI..."
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 2> /dev/null
@@ -11,7 +11,7 @@ def call(String dockerRegistry, String dockerImageTag, String ecrRepo, String aw
             rm -rf awscliv2.zip aws
             echo "AWS CLI installed successfully."
         fi
-    """
+    """*/
 
     withCredentials([usernamePassword(
         credentialsId: "$awsCredID",
